@@ -3,41 +3,46 @@ package ioc.decoupled;
 import java.util.Properties;
 
 public final class ExchangeRateSupportFactory {
-    private static final ExchangeRateSupportFactory instance;
-    private final ExchangeRateProvider exchangeRateProvider;
-    private final ExchangeRateRenderer exchangeRateRenderer;
+  private static final ExchangeRateSupportFactory instance;
 
-    static {
-        instance = new ExchangeRateSupportFactory();
+  static {
+    instance = new ExchangeRateSupportFactory();
+  }
+
+  private final ExchangeRateProvider exchangeRateProvider;
+  private final ExchangeRateRenderer exchangeRateRenderer;
+
+  private ExchangeRateSupportFactory() {
+    Properties properties = new Properties();
+    try {
+      final var resourceStream = this.getClass().getResourceAsStream("/exchange-rate.properties");
+      properties.load(resourceStream);
+
+      final var providerClass = properties.getProperty("provider.class");
+      final var rendererClass = properties.getProperty("renderer.class");
+
+      this.exchangeRateProvider =
+          (ExchangeRateProvider)
+              Class.forName(providerClass).getDeclaredConstructor().newInstance();
+      this.exchangeRateRenderer =
+          (ExchangeRateRenderer)
+              Class.forName(rendererClass).getDeclaredConstructor().newInstance();
+
+      exchangeRateRenderer.setExchangeRateProvider(exchangeRateProvider);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
     }
+  }
 
-    private ExchangeRateSupportFactory() {
-        Properties properties = new Properties();
-        try {
-            final var resourceStream = this.getClass().getResourceAsStream("/exchange-rate.properties");
-            properties.load(resourceStream);
+  public static ExchangeRateSupportFactory getInstance() {
+    return instance;
+  }
 
-            final var providerClass = properties.getProperty("provider.class");
-            final var rendererClass = properties.getProperty("renderer.class");
+  public ExchangeRateProvider getExchangeRateProvider() {
+    return exchangeRateProvider;
+  }
 
-            this.exchangeRateProvider = (ExchangeRateProvider) Class.forName(providerClass).getDeclaredConstructor().newInstance();
-            this.exchangeRateRenderer = (ExchangeRateRenderer) Class.forName(rendererClass).getDeclaredConstructor().newInstance();
-
-            exchangeRateRenderer.setExchangeRateProvider(exchangeRateProvider);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static ExchangeRateSupportFactory getInstance() {
-        return instance;
-    }
-
-    public ExchangeRateProvider getExchangeRateProvider() {
-        return exchangeRateProvider;
-    }
-
-    public ExchangeRateRenderer getExchangeRateRenderer() {
-        return exchangeRateRenderer;
-    }
+  public ExchangeRateRenderer getExchangeRateRenderer() {
+    return exchangeRateRenderer;
+  }
 }

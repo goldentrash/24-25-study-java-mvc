@@ -2,19 +2,19 @@ package di;
 
 public class User {
 
-    private final long id;
-    private final String account;
+  private final long id;
+  private final String account;
 
-    public User(long id, String account) {
-        this.id = id;
-        this.account = account;
-    }
+  public User(long id, String account) {
+    this.id = id;
+    this.account = account;
+  }
 
-    public long getId() {
-        return id;
-    }
+  public long getId() {
+    return id;
+  }
 
-    public String getAccount() {
-        return account;
-    }
+  public String getAccount() {
+    return account;
+  }
 }

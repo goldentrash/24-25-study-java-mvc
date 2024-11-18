@@ -5,13 +5,12 @@ import di.User;
 @Service
 class UserService {
 
-    @Inject
-    private UserDao userDao;
+  @Inject private UserDao userDao;
 
-    public User join(final User user) {
-        userDao.insert(user);
-        return userDao.findById(user.getId());
-    }
+  private UserService() {}
 
-    private UserService() {}
+  public User join(final User user) {
+    userDao.insert(user);
+    return userDao.findById(user.getId());
+  }
 }

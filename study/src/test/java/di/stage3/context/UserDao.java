@@ -4,7 +4,7 @@ import di.User;
 
 interface UserDao {
 
-    void insert(User user);
+  void insert(User user);
 
-    User findById(long id);
+  User findById(long id);
 }

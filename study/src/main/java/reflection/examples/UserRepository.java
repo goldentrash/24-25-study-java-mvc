@@ -1,4 +1,3 @@
 package reflection.examples;
 
-public interface UserRepository {
-}
+public interface UserRepository {}
