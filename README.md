@@ -29,6 +29,7 @@ git checkout 24YoonByungWook
     + [x] [Junit4TestRunner](study/src/test/java/reflection/Junit4TestRunner.java)
     + [x] [ReflectionTest](study/src/test/java/reflection/ReflectionTest.java)
     + [x] [ReflectionsTest](study/src/test/java/reflection/ReflectionsTest.java)
++ [x] study/src/test/java/servlet 디렉토리 내부의 테스트를 수행한다.
 
 # 🚀 1단계 - @MVC 프레임워크 구현하기
 
