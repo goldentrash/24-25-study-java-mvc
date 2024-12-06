@@ -23,7 +23,7 @@ git checkout 24YoonByungWook
 
 # 0단계 - Reflection, DI 학습 미션
 
-+ [ ] study 디렉토리 안의 test를 아래 순서대로 모두 수행한다.
++ [x] study 디렉토리 안의 test를 아래 순서대로 모두 수행한다.
 + [x] study/src/test/java/reflection 디렉토리 내부의 테스트를 수행한다.
     + [x] [Junit3TestRunner](study/src/test/java/reflection/Junit3TestRunner.java)
     + [x] [Junit4TestRunner](study/src/test/java/reflection/Junit4TestRunner.java)
