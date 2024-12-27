@@ -1,9 +1,9 @@
 package ioc.decoupled;
 
 public interface ExchangeRateRenderer {
-  void render();
+    void render();
 
-  ExchangeRateProvider getExchangeRateProvider();
+    ExchangeRateProvider getExchangeRateProvider();
 
-  void setExchangeRateProvider(ExchangeRateProvider provider);
+    void setExchangeRateProvider(ExchangeRateProvider provider);
 }

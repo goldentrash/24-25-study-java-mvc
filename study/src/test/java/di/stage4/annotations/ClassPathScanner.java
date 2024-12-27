@@ -6,11 +6,11 @@ import org.reflections.Reflections;
 
 public class ClassPathScanner {
 
-  public static Set<Class<?>> getAllClassesInPackage(final String packageName) {
-    Reflections reflections = new Reflections(packageName);
-    Set<Class<?>> classes = new HashSet<>();
-    classes.addAll(reflections.getTypesAnnotatedWith(Repository.class));
-    classes.addAll(reflections.getTypesAnnotatedWith(Service.class));
-    return classes;
-  }
+    public static Set<Class<?>> getAllClassesInPackage(final String packageName) {
+        Reflections reflections = new Reflections(packageName);
+        Set<Class<?>> classes = new HashSet<>();
+        classes.addAll(reflections.getTypesAnnotatedWith(Repository.class));
+        classes.addAll(reflections.getTypesAnnotatedWith(Service.class));
+        return classes;
+    }
 }

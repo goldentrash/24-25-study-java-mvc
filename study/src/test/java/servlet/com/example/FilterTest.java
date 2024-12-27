@@ -9,18 +9,18 @@ import support.HttpUtils;
 @SuppressWarnings("NonAsciiCharacters")
 class FilterTest {
 
-  @Test
-  void testFilter() {
-    // 톰캣 서버 시작
-    final var tomcatStarter = new TomcatStarter("src/main/webapp/");
-    tomcatStarter.start();
+    @Test
+    void testFilter() {
+        // 톰캣 서버 시작
+        final var tomcatStarter = new TomcatStarter("src/main/webapp/");
+        tomcatStarter.start();
 
-    final var response = HttpUtils.send("/korean");
+        final var response = HttpUtils.send("/korean");
 
-    // 톰캣 서버 종료
-    tomcatStarter.stop();
+        // 톰캣 서버 종료
+        tomcatStarter.stop();
 
-    assertThat(response.statusCode()).isEqualTo(200);
-    assertThat(response.body()).isEqualTo(인코딩);
-  }
+        assertThat(response.statusCode()).isEqualTo(200);
+        assertThat(response.body()).isEqualTo(인코딩);
+    }
 }

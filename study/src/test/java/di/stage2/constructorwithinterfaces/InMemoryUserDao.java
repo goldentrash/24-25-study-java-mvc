@@ -10,35 +10,35 @@ import org.slf4j.LoggerFactory;
 
 class InMemoryUserDao implements UserDao {
 
-  private static final Logger log = LoggerFactory.getLogger(InMemoryUserDao.class);
+    private static final Logger log = LoggerFactory.getLogger(InMemoryUserDao.class);
 
-  private static final Map<Long, User> users = new HashMap<>();
+    private static final Map<Long, User> users = new HashMap<>();
 
-  private final JdbcDataSource dataSource;
+    private final JdbcDataSource dataSource;
 
-  public InMemoryUserDao() {
-    final var jdbcDataSource = new JdbcDataSource();
-    jdbcDataSource.setUrl("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;");
-    jdbcDataSource.setUser("");
-    jdbcDataSource.setPassword("");
+    public InMemoryUserDao() {
+        final var jdbcDataSource = new JdbcDataSource();
+        jdbcDataSource.setUrl("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;");
+        jdbcDataSource.setUser("");
+        jdbcDataSource.setPassword("");
 
-    this.dataSource = jdbcDataSource;
-  }
-
-  public void insert(User user) {
-    try (final var connection = dataSource.getConnection()) {
-      users.put(user.getId(), user);
-    } catch (SQLException e) {
-      log.error(e.getMessage());
+        this.dataSource = jdbcDataSource;
     }
-  }
 
-  public User findById(long id) {
-    try (final var connection = dataSource.getConnection()) {
-      return users.get(id);
-    } catch (SQLException e) {
-      log.error(e.getMessage());
-      return null;
+    public void insert(User user) {
+        try (final var connection = dataSource.getConnection()) {
+            users.put(user.getId(), user);
+        } catch (SQLException e) {
+            log.error(e.getMessage());
+        }
     }
-  }
+
+    public User findById(long id) {
+        try (final var connection = dataSource.getConnection()) {
+            return users.get(id);
+        } catch (SQLException e) {
+            log.error(e.getMessage());
+            return null;
+        }
+    }
 }

@@ -1,3 +1,4 @@
 package reflection.examples;
 
-public interface QuestionRepository {}
+public interface QuestionRepository {
+}

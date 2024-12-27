@@ -8,15 +8,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ExchangeRateConfiguration {
 
-  @Bean
-  public ExchangeRateProvider exchangeRateProvider() {
-    return new DaumExchangeRateProvider();
-  }
+    @Bean
+    public ExchangeRateProvider exchangeRateProvider() {
+        return new DaumExchangeRateProvider();
+    }
 
-  @Bean
-  public ExchangeRateRenderer exchangeRateRenderer() {
-    final var renderer = new StandardOutputExchangeRateRenderer();
-    renderer.setExchangeRateProvider(exchangeRateProvider());
-    return renderer;
-  }
+    @Bean
+    public ExchangeRateRenderer exchangeRateRenderer() {
+        final var renderer = new StandardOutputExchangeRateRenderer();
+        renderer.setExchangeRateProvider(exchangeRateProvider());
+        return renderer;
+    }
 }
