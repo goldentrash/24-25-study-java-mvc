@@ -38,7 +38,7 @@ git checkout 24YoonByungWook
 어노테이션 기반의 MVC 프레임워크를 구현한다.
 
 - [x] `AnnotationHandlerMappingTest`가 정상 동작한다.
-- [ ] `DispatcherServlet`에서 `HandlerMapping` 인터페이스를 활용하여 `AnnotationHandlerMapping`과 `ManualHandlerMapping` 둘다 처리할 수 있다.
+- [x] `DispatcherServlet`에서 `HandlerMapping` 인터페이스를 활용하여 `AnnotationHandlerMapping`과 `ManualHandlerMapping` 둘다 처리할 수 있다.
 
 ### AnnotationHandlerMapping 구현
 
@@ -50,7 +50,7 @@ git checkout 24YoonByungWook
 
 `ManualHandlerMapping`과 `AnnotationHandlerMapping` 둘 다 사용할 수 있어야 한다.
 
-- [ ] `Controller`와 `HandlerExecution` 둘 다를 실행할 수 있다.
+- [x] `Controller`와 `HandlerExecution` 둘 다를 실행할 수 있다.
 - [x] `ModelAndView`를 적절하게 rendering 할 수 있다.
 
 ## 🚀 2단계 - 점진적인 리팩터링
@@ -62,8 +62,8 @@ git checkout 24YoonByungWook
 interface 기반의 컨트롤러와 annotation 기반의 컨트롤러가 공존하는 상태로 정상 동작하도록 구현한다.
 
 - [ ] ControllerScanner 클래스에서 @Controller가 붙은 클래스를 찾을 수 있다.
-- [ ] HandlerMappingRegistry 클래스에서 HandlerMapping을 처리하도록 한다.
-- [ ] HandlerAdapterRegistry 클래스에서 HandlerAdapter를 처리하도록 한다.
+- [x] HandlerMappingRegistry 클래스에서 HandlerMapping을 처리하도록 한다.
+- [x] HandlerAdapterRegistry 클래스에서 HandlerAdapter를 처리하도록 한다.
 
 ## 🚀 3단계 - JSON View 구현하기
 
