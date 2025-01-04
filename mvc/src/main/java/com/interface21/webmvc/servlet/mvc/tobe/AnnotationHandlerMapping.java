@@ -6,11 +6,9 @@ import com.interface21.web.bind.annotation.RequestMethod;
 import jakarta.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
-import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +27,8 @@ public class AnnotationHandlerMapping implements HandlerMapping {
     @Override
     public void initialize() {
         log.info("Initialized AnnotationHandlerMapping!");
-        registerPackages(basePackage);
+        ControllerScanner controllerScanner = new ControllerScanner();
+        controllerScanner.scan(basePackage).forEach(this::registerController);
     }
 
     @Override
@@ -43,13 +42,6 @@ public class AnnotationHandlerMapping implements HandlerMapping {
         RequestMethod requestMethod = RequestMethod.valueOf(request.getMethod());
         HandlerKey handlerKey = new HandlerKey(requestURI, requestMethod);
         return handlerExecutions.get(handlerKey);
-    }
-
-    private void registerPackages(final Object[] packages) {
-        Arrays.stream(packages).map(Reflections::new)
-                .map(r -> r.getTypesAnnotatedWith(Controller.class))
-                .flatMap(Collection::stream)
-                .forEach(this::registerController);
     }
 
     private void registerController(final Class<?> controllerClass) {
