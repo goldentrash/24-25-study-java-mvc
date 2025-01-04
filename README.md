@@ -51,7 +51,7 @@ git checkout 24YoonByungWook
 `ManualHandlerMapping`과 `AnnotationHandlerMapping` 둘 다 사용할 수 있어야 한다.
 
 - [ ] `Controller`와 `HandlerExecution` 둘 다를 실행할 수 있다.
-- [ ] `ModelAndView`를 적절하게 rendering 할 수 있다.
+- [x] `ModelAndView`를 적절하게 rendering 할 수 있다.
 
 ## 🚀 2단계 - 점진적인 리팩터링
 
