@@ -86,3 +86,9 @@ interface 기반의 컨트롤러와 annotation 기반의 컨트롤러가 공존�
 
 - [ ] app module의 모든 controller를 annotation 기반으로 변경한다.
 - [ ] asis 패키지의 레거시 코드를 삭제해도 정상 동작하도록 리팩터링한다.
+
+### Advanced
+
+- [ ] `ArgumentResolver` 구현
+- [ ] `Bean` 등록에 파라미터 지원
+- [ ] `@Component`를 통한 Meta Annotation Scan 확장
