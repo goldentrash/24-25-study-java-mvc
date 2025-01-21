@@ -1,8 +1,11 @@
-package com.interface21.webmvc.servlet.mvc.tobe;
+package com.interface21.web.handler.mapping;
 
 import com.interface21.context.stereotype.Controller;
+import com.interface21.context.stereotype.ControllerScanner;
 import com.interface21.web.bind.annotation.RequestMapping;
 import com.interface21.web.bind.annotation.RequestMethod;
+import com.interface21.web.handler.HandlerExecution;
+import com.interface21.web.handler.HandlerKey;
 import jakarta.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -28,7 +31,7 @@ public class AnnotationHandlerMapping implements HandlerMapping {
     public void initialize() {
         log.info("Initialized AnnotationHandlerMapping!");
         ControllerScanner controllerScanner = new ControllerScanner();
-        controllerScanner.scan(basePackage).forEach(this::registerController);
+        controllerScanner.scanControllerClasses(basePackage).forEach(this::registerController);
     }
 
     @Override
@@ -36,6 +39,7 @@ public class AnnotationHandlerMapping implements HandlerMapping {
         return getHandler(request) != null;
     }
 
+    // TODO: need to check supports
     @Override
     public HandlerExecution getHandler(final HttpServletRequest request) {
         String requestURI = request.getRequestURI();
@@ -53,6 +57,7 @@ public class AnnotationHandlerMapping implements HandlerMapping {
                 .forEach(registerMethod);
     }
 
+    // TODO: refactor to only need baseValue
     private Consumer<Method> genRegisterMethod(final Class<?> controllerClass, final String baseValue) {
         return method -> {
             HandlerExecution handlerExecution = new HandlerExecution(controllerClass, method);

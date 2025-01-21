@@ -1,6 +1,6 @@
-package com.techcourse;
+package com.interface21.core.servlet;
 
-import com.interface21.web.WebApplicationInitializer;
+import com.interface21.core.WebApplicationInitializer;
 import jakarta.servlet.ServletContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

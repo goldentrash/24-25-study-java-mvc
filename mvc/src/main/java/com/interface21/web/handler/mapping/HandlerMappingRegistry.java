@@ -1,13 +1,13 @@
-package com.techcourse;
+package com.interface21.web.handler.mapping;
 
 import com.interface21.core.util.ReflectionUtils;
-import com.interface21.webmvc.servlet.mvc.tobe.HandlerMapping;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 public class HandlerMappingRegistry {
+
     private final Set<HandlerMapping> handlerMappings;
 
     public HandlerMappingRegistry() {
@@ -18,6 +18,7 @@ public class HandlerMappingRegistry {
             final Class<? extends HandlerMapping> handlerMappingClass, Object... args)
             throws ReflectiveOperationException {
         HandlerMapping handlerMapping;
+        // TODO: too complex now
         try {
             handlerMapping = ReflectionUtils
                     .accessibleConstructor(handlerMappingClass, getArgsClass(args))
@@ -32,10 +33,11 @@ public class HandlerMappingRegistry {
         handlerMappings.add(handlerMapping);
     }
 
+    // TODO: exception handling
     public Object getHandler(final HttpServletRequest request) {
         return handlerMappings.stream()
-                .filter(handlerMapping -> handlerMapping.supports(request))
-                .map(handlerMapping -> handlerMapping.getHandler(request))
+                .filter(mapping -> mapping.supports(request))
+                .map(mapping -> mapping.getHandler(request))
                 .findFirst()
                 .orElse(null);
     }

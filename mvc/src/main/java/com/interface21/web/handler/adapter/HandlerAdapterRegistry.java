@@ -1,12 +1,12 @@
-package com.techcourse;
+package com.interface21.web.handler.adapter;
 
 import com.interface21.core.util.ReflectionUtils;
-import com.interface21.webmvc.servlet.mvc.tobe.HandlerAdapter;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 public class HandlerAdapterRegistry {
+
     private final Set<HandlerAdapter> handlerAdapters;
 
     public HandlerAdapterRegistry() {
@@ -14,24 +14,26 @@ public class HandlerAdapterRegistry {
     }
 
     public void registerHandlerAdapter(
-            final Class<? extends HandlerAdapter> handlerClass, final Object... args)
+            final Class<? extends HandlerAdapter> handlerAdapterClass, final Object... args)
             throws ReflectiveOperationException {
         HandlerAdapter handlerAdapter;
+        // TODO: too complex now
         try {
             handlerAdapter = ReflectionUtils
-                    .accessibleConstructor(handlerClass, getArgsClass(args))
+                    .accessibleConstructor(handlerAdapterClass, getArgsClass(args))
                     .newInstance(args);
         } catch (NoSuchMethodException e) {
             handlerAdapter = ReflectionUtils
-                    .accessibleConstructor(handlerClass, Object[].class)
+                    .accessibleConstructor(handlerAdapterClass, Object[].class)
                     .newInstance((Object) args);
         }
         handlerAdapters.add(handlerAdapter);
     }
 
+    // TODO: exception handling
     public HandlerAdapter getHandlerAdapter(final Object handler) {
         return handlerAdapters.stream()
-                .filter(handlerAdapter -> handlerAdapter.supports(handler))
+                .filter(adapter -> adapter.supports(handler))
                 .findFirst()
                 .orElse(null);
     }

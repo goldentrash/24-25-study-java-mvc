@@ -1,10 +1,11 @@
-package com.interface21.webmvc.servlet.mvc.tobe;
+package com.interface21.web.handler.adapter;
 
-import com.interface21.webmvc.servlet.ModelAndView;
+import com.interface21.web.ModelAndView;
+import com.interface21.web.handler.HandlerExecution;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class HandlerExecutionAdapter implements HandlerAdapter {
+public class HandlerExecutionHandlerAdapter implements HandlerAdapter {
 
     @Override
     public boolean supports(final Object handler) {
