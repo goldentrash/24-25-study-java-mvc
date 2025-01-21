@@ -8,7 +8,7 @@ import org.reflections.Reflections;
 
 public class ControllerScanner {
 
-    public Set<Class<?>> scanControllerClasses(final Object[] packages) {
+    public Set<Class<?>> scanControllerClasses(final String... packages) {
         return Arrays.stream(packages).map(Reflections::new)
                 .map(r -> r.getTypesAnnotatedWith(Controller.class))
                 .flatMap(Collection::stream)

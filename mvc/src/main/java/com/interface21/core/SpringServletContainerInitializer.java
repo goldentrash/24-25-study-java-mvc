@@ -1,5 +1,6 @@
 package com.interface21.core;
 
+import com.interface21.core.bean.Bean;
 import com.interface21.core.util.ReflectionUtils;
 import jakarta.servlet.ServletContainerInitializer;
 import jakarta.servlet.ServletContext;
@@ -15,6 +16,8 @@ public class SpringServletContainerInitializer implements ServletContainerInitia
     @Override
     public void onStartup(Set<Class<?>> webAppInitializerClasses, ServletContext servletContext)
             throws ServletException {
+        Bean.initialize();
+        
         final List<WebApplicationInitializer> initializers = new ArrayList<>();
 
         if (webAppInitializerClasses != null) {

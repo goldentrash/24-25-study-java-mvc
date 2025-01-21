@@ -1,7 +1,8 @@
 package com.interface21.web.handler.mapping;
 
 import com.interface21.context.stereotype.Controller;
-import com.interface21.core.bean.ControllerScanner;
+import com.interface21.context.stereotype.ControllerScanner;
+import com.interface21.core.bean.Bean;
 import com.interface21.web.bind.annotation.RequestMapping;
 import com.interface21.web.bind.annotation.RequestMethod;
 import com.interface21.web.handler.HandlerExecution;
@@ -19,19 +20,20 @@ public class AnnotationHandlerMapping implements HandlerMapping {
 
     private static final Logger log = LoggerFactory.getLogger(AnnotationHandlerMapping.class);
 
-    private final Object[] basePackage;
+    private final String[] basePackage;
     private final Map<HandlerKey, HandlerExecution> handlerExecutions;
 
-    public AnnotationHandlerMapping(final Object... basePackage) {
+    public AnnotationHandlerMapping(final String... basePackage) {
         this.basePackage = basePackage;
         this.handlerExecutions = new HashMap<>();
     }
 
     @Override
     public void initialize() {
-        log.info("Initialized AnnotationHandlerMapping!");
         ControllerScanner controllerScanner = new ControllerScanner();
-        controllerScanner.scanControllerClasses(basePackage).forEach(this::registerController);
+        controllerScanner.scanControllerClasses(basePackage).forEach(this::registerHandlerExecutions);
+
+        log.info("Initialized AnnotationHandlerMapping!");
     }
 
     @Override
@@ -47,18 +49,17 @@ public class AnnotationHandlerMapping implements HandlerMapping {
         return handlerExecutions.get(handlerKey);
     }
 
-    private void registerController(final Class<?> controllerClass) {
+    private void registerHandlerExecutions(final Class<?> controllerClass) {
         String baseValue = controllerClass.getAnnotation(Controller.class).value();
-
-        Consumer<Method> registerMethod = genRegisterMethod(controllerClass, baseValue);
+        Object controllerObject = Bean.getBean(controllerClass);
         Arrays.stream(controllerClass.getDeclaredMethods())
                 .filter(m -> m.isAnnotationPresent(RequestMapping.class))
-                .forEach(registerMethod);
+                .forEach(genRegisterMethod(controllerObject, baseValue));
     }
 
-    private Consumer<Method> genRegisterMethod(final Class<?> controllerClass, final String baseValue) {
+    private Consumer<Method> genRegisterMethod(final Object controllerObject, final String baseValue) {
         return method -> {
-            HandlerExecution handlerExecution = new HandlerExecution(controllerClass, method);
+            HandlerExecution handlerExecution = new HandlerExecution(controllerObject, method);
 
             RequestMapping requestMapping = method.getAnnotation(RequestMapping.class);
             String url = baseValue + requestMapping.value();
