@@ -1,7 +1,7 @@
 package com.interface21.web.handler.mapping;
 
 import com.interface21.context.stereotype.Controller;
-import com.interface21.context.stereotype.ControllerScanner;
+import com.interface21.core.bean.ControllerScanner;
 import com.interface21.web.bind.annotation.RequestMapping;
 import com.interface21.web.bind.annotation.RequestMethod;
 import com.interface21.web.handler.HandlerExecution;
@@ -39,7 +39,6 @@ public class AnnotationHandlerMapping implements HandlerMapping {
         return getHandler(request) != null;
     }
 
-    // TODO: need to check supports
     @Override
     public HandlerExecution getHandler(final HttpServletRequest request) {
         String requestURI = request.getRequestURI();
@@ -57,7 +56,6 @@ public class AnnotationHandlerMapping implements HandlerMapping {
                 .forEach(registerMethod);
     }
 
-    // TODO: refactor to only need baseValue
     private Consumer<Method> genRegisterMethod(final Class<?> controllerClass, final String baseValue) {
         return method -> {
             HandlerExecution handlerExecution = new HandlerExecution(controllerClass, method);
